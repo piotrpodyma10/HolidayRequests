@@ -1,12 +1,13 @@
 ﻿using HolidayRequests.Data;
 using HolidayRequests.Data.Data;
 using HolidayRequests.Requests;
+using HolidayRequests.ViewModels.Employee;
 using HolidayRequests.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HolidayRequests.Controllers
 {
@@ -42,7 +43,7 @@ namespace HolidayRequests.Controllers
         }
 
         [HttpPost("LogInUser")]
-        public IActionResult LogInToApp([FromBody] UserRequest userRequest)
+        public EmployeeViewModel LogInToApp([FromBody] UserRequest userRequest)
         {
             try
             {
@@ -52,10 +53,27 @@ namespace HolidayRequests.Controllers
 
                 if(findUser == null)
                 {
-                    return Ok("Simple text");
+                    return new EmployeeViewModel();
                 }
 
-                return Ok(findUser);
+                return _context.UserRoles
+                    .Include(r => r.Role)
+                    .Include(e => e.Employee)
+                    .Include(u => u.Employee.User)
+                    .Include(c => c.Employee.Department)
+                    .Where(u => u.Employee.UserId == findUser.Id)
+                    .Select(x => new EmployeeViewModel
+                    {
+                        Id = x.EmployeeId,
+                        FirstName = x.Employee.FirstName,
+                        LastName = x.Employee.LastName,
+                        Role = x.Role.Name,
+                        ActualLeaveDaysNumber = x.Employee.ActualLeaveDaysNumber,
+                        LeaveDaysPerYear = x.Employee.LeaveDaysPerYear,
+                        DepartmentName = x.Employee.Department.Name,
+                        Email = x.Employee.User.Email
+                    })
+                    .FirstOrDefault();
             }
             catch (Exception e)
             {
