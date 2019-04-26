@@ -14,21 +14,21 @@ const middlewares = [thunk]
 const store = createStore(reducers, applyMiddleware(...middlewares))
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={createBrowserHistory()}>
-            <Route 
-                exact component={App}
-                path="/"
-            />
-            <Route
-                component={Employee}
-                path="/Employee"
-            />
-            <Route
-                component={Manager}
-                path="/Manager"
-            />
-        </Router>
-    </Provider>,
-    document.querySelector('#root')
+  <Provider store={store}>
+    <Router history={createBrowserHistory()}>
+      <Route 
+        exact component={App}
+        path="/"
+      />
+      <Route
+        component={Employee}
+        path="/Employee"
+      />
+      <Route
+        component={Manager}
+        path="/Manager"
+      />
+    </Router>
+  </Provider>,
+  document.querySelector('#root')
 )

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import {
-    signInReducer,
+  signInReducer,
 } from './userReducers'
 
 export default combineReducers({
-    signIn: signInReducer,
+  signIn: signInReducer,
 })
