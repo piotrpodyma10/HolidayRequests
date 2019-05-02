@@ -28,6 +28,37 @@ namespace HolidayRequests.Controllers
             return Ok(response);
         }
 
+        [HttpGet("GetUserById")]
+        public ActionResult<IEnumerable<EmployeeViewModel>> GetUserById(int id)
+        {
+            var response = _context.UserRoles
+                    .Include(r => r.Role)
+                    .Include(e => e.Employee)
+                    .Include(u => u.Employee.User)
+                    .Include(c => c.Employee.Department)
+                    .Where(u => u.Employee.UserId == id)
+                    .Select(x => new EmployeeViewModel
+                    {
+                        Id = x.EmployeeId,
+                        FirstName = x.Employee.FirstName,
+                        LastName = x.Employee.LastName,
+                        Role = x.Role.Name,
+                        ActualLeaveDaysNumber = x.Employee.ActualLeaveDaysNumber,
+                        LeaveDaysPerYear = x.Employee.LeaveDaysPerYear,
+                        DepartmentName = x.Employee.Department.Name,
+                        Email = x.Employee.User.Email,
+                        DepartmentTitle = "Department",
+                        ModalTitle = "Take a day off!",
+                        UserTitle = "Username",
+                        ActualLeaveDaysTitle = "Your remaining days off",
+                        RoleTitle = "Role in our company"
+
+                    })
+                    .FirstOrDefault();
+
+            return Ok(response);
+        }
+
         [HttpPost("AddNewUser")]
         public IActionResult CreateNewUser([FromBody] UserRequest userRequest)
         {

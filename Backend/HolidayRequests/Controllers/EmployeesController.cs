@@ -3,6 +3,7 @@ using HolidayRequests.Data.Data;
 using HolidayRequests.Requests;
 using HolidayRequests.Requests.Employee;
 using HolidayRequests.ViewModels.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,7 @@ namespace HolidayRequests.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator, HR-Manager")]
         [HttpPost("AddNewEmployee")]
         public IActionResult AddNewEmployee ([FromBody] NewEmployeeRequest request)
         {

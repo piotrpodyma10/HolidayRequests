@@ -1,0 +1,23 @@
+.boxContainer {
+  background-color: rgba(0, 158, 197, 0.7);
+  width: 200px;
+  height: 120px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  transition: 2s;
+
+  &:hover {
+    background-color: rgba(0, 102, 128, 0.9);
+    cursor: pointer;
+    transition: 2s;
+
+  }
+}
+
+.boxWrapper {
+  display: inline-block;
+  padding: 10px;
+}
