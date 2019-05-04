@@ -1,9 +1,61 @@
 .Container {
-  margin-left: auto;
-  margin-right: auto;
-  height: 400px;
-  width: 800px;
-  margin-top:100px;
+  background-image:url("/img/background14.jpg");
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+
+  .form {
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 400px;
+    border:white solid 2px;
+    border-radius: 5%;
+    background-color: rgba(0, 35, 37, 0.7);
+
+    .field {
+      text-align: center;
+
+      .button {
+        width: 120px;
+        background-color: #007b76;
+        &:hover {
+          background-color: #00bdb6;
+        } 
+      }
+
+      input {
+        border: rgb(255, 255, 255) solid 2px;
+        transition: 2s;
+        background-color: rgba(211, 211, 211, 0.7);
+        color: white;
+        &::placeholder {
+          color: rgba(0,0,0,0.87);
+          transition: 2s;
+        }
+        &:focus {
+          background-color: rgba(0, 35, 37, 0.8);
+          border-color: #00d4cd;
+          color: #00d4cd;
+        }
+        &:focus + .icon {
+          color: white;
+        }
+      }
+    }
+  }
 
   .HolidayLogo {
     height: 50px;
@@ -45,13 +97,4 @@
       }
     }
   }
-}
-
-body {
-  background-image:url("/img/background14.jpg");
-  background-attachment:fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
 }

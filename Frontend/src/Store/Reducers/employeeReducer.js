@@ -6,3 +6,12 @@ export const employeeDataReducer = (state = [], action) => {
       return state
   }
 }
+
+export const leaveRequestReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'POST_LEAVE_REQUEST':
+      return {...state, leaveRequest: action.payload}
+    default:
+      return state
+  }
+}

@@ -29,23 +29,26 @@ class LoginView extends Component {
     return (
       <div className="Container">
         <div className='ui form'>
-          <div className={`field ${this.addErrorClass(this.state.error)}`}>
-            <div className='ui left icon input'>
-              <i className='user icon'></i>
-              <input type='text' placeholder='Email' value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
+          <div>
+            <div className={`field ${this.addErrorClass(this.state.error)}`}>
+              <div className='ui left icon input'>
+                <input type='text' placeholder='Email' value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
+                <i className='user icon'></i>
+              </div>
+            </div>
+            
+            <div className={`field ${this.addErrorClass(this.state.error)}`}>
+              <div className='ui left icon input'>
+                <input type='password' placeholder='Password' value={this.state.password}  onChange={(e) => this.setState({password: e.target.value})} />
+                <i className='lock icon xd'></i>
+              </div>
+            </div>
+            <div className="field">
+              <button className='ui blue submit button' onClick={() => this.props.signInUser(this.state.email, this.state.password)} label='Sign In'>
+                Sign In
+              </button>
             </div>
           </div>
-          
-          <div className={`field ${this.addErrorClass(this.state.error)}`}>
-            <div className='ui left icon input'>
-              <i className='lock icon'></i>
-              <input type='password' placeholder='Password' value={this.state.password}  onChange={(e) => this.setState({password: e.target.value})} />
-            </div>
-          </div>
-
-          <button className='ui blue submit button' onClick={() => this.props.signInUser(this.state.email, this.state.password)} label='Sign In'>
-            Sign In
-          </button>
         </div>
       </div>
     )

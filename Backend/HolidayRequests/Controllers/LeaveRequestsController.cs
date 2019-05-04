@@ -47,6 +47,7 @@ namespace HolidayRequests.Controllers
                         EndDate = request.EndDate,
                         IsPayed = request.IsPayed,
                         Status = "Open",
+                        DaysOff = request.DaysOff,
                         ApproverId = request.ApproverId
                     });
 

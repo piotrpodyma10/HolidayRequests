@@ -10,9 +10,10 @@ namespace HolidayRequests.Data.Data
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public Boolean IsPayed { get; set; }
         public string Status { get; set; }
+        public int DaysOff { get; set; }
 
         [ForeignKey("EmployeeId")]
         public virtual Employee Employee { get; set; }

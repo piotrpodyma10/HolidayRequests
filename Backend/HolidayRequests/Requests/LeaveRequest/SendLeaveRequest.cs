@@ -9,8 +9,9 @@ namespace HolidayRequests.Requests.LeaveRequest
     {
         public int EmployeeId { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public Boolean IsPayed { get; set; }
+        public int DaysOff { get; set; }
         public int ApproverId { get; set; }
     }
 }

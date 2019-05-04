@@ -4,14 +4,16 @@ using HolidayRequests.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HolidayRequests.Data.Migrations
 {
     [DbContext(typeof(HolidayRequestsContext))]
-    partial class HolidayRequestsContextModelSnapshot : ModelSnapshot
+    [Migration("20190504063053_Add daysOff column to LeaveRequest")]
+    partial class AdddaysOffcolumntoLeaveRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,7 @@ namespace HolidayRequests.Data.Migrations
 
                     b.Property<int>("EmployeeId");
 
-                    b.Property<DateTime?>("EndDate");
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<bool>("IsPayed");
 

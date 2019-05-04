@@ -9,7 +9,7 @@ import Modal from '../../Components/Modal'
 class Employee extends Component {
 
   state = {
-    openModal: false
+    openedModal: false
   }
 
   componentDidMount() {
@@ -17,13 +17,13 @@ class Employee extends Component {
   }
 
   openModal = () => {
-    this.setState({ openModal: !this.state.openModal })
+    this.setState({ openedModal: !this.state.openedModal })
   }
 
   render() {
     return (
       <Fragment>
-        <div className="employeeContainer" style={this.state.openModal ? {filter: "blur(4px)"} : {}}>
+        <div className="employeeContainer" style={this.state.openedModal ? {filter: "blur(4px)"} : {}}>
           <div className="boxList">
             {this.props.employee && <React.Fragment>
               <Box title={this.props.employee.userTitle} value={`${this.props.employee.firstName} ${this.props.employee.lastName}`} />
@@ -33,11 +33,12 @@ class Employee extends Component {
               <div className="eventBox" onClick={() => this.openModal()}>
                 <Box title={this.props.employee.modalTitle} modal />
               </div>
+              <Box title={"Check your requests history"} />
             </React.Fragment>
             }
           </div>
         </div>
-        <Modal openModal={this.state.openModal} />
+        <Modal openedModal={this.state.openedModal} openModal={this.openModal} />
       </Fragment>
     )
   }
@@ -52,6 +53,5 @@ const mapStateToProps = state => {
 export default connect ( 
   mapStateToProps, {
     getEmployeeData
-    // signInUser
   }
 )(Employee)
