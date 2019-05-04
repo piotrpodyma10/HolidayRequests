@@ -1,0 +1,69 @@
+.formHeader {
+  text-align: center;
+  line-height: 25px;
+  height: 50px;
+  padding: 5px;
+  margin-bottom: 15px;
+  .formTitle {
+    font-size: 20px;
+  }
+}
+
+.error {
+  color: red;
+  border: solid red 2px;
+  width: 200px;
+  float: left;
+  margin-left: auto;
+  margin-top: 15px;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.table {
+  margin: 0px !important;
+}
+
+.buttons {
+  overflow: auto;
+  white-space: nowrap;
+  margin: 0 auto;
+  width: 210px;
+  padding: 15px;
+  float: right;
+  margin-top: 35px;
+
+  button {
+    padding: 0 15px;
+    height: 30px;
+    border-radius: 5%;
+    border: solid white 2px;
+    color: white;
+    transition: 2s;
+
+    &:hover {
+      cursor: pointer;
+      transition: 2s;
+    }
+  }
+
+  .acceptButton {
+    float: right;
+    background-color: rgba(7, 69, 93, 0.8);
+    &:hover {
+      background-color: #02a1b1;
+    }
+
+  }
+
+  .cancelButton {
+    float: left;
+    background-color: rgba(7, 69, 93, 0.8);
+    &:hover {
+      background-color:#908f8f;
+    }
+  }
+}

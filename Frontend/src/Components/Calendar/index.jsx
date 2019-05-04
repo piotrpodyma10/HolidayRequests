@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'moment/locale/en-gb';
 import { connect } from 'react-redux'
 import { sendLeaveRequest } from './../../Store/Actions/'
+import './styles.scss'
 
 class DateTimeFormInline extends React.Component {
   constructor(props) {
@@ -69,13 +70,19 @@ class DateTimeFormInline extends React.Component {
     const daysOffText = `You take ${data.daysOff} ${data.daysOff === "1" ? 'one day' : 'days'} off`
     return (
       <Form>
-        {daysOffText}
+        <div className="formHeader">
+          <div className="formTitle">
+            Take some day off
+          </div>
+          <div className="formNumberAboutDays">
+            {daysOffText}
+          </div>
+        </div>
         <DatesRangeInput localization='en-gb'
           inline
           name='date'
           marked={moment()}
           markColor={"olive"}
-          // inlineLabel
           initialDate={moment()}
           value={this.state.date}
           onChange={this.handleChange}
@@ -87,12 +94,12 @@ class DateTimeFormInline extends React.Component {
           > Accept
           </button>
           <button 
-            className="declimeButton"
+            className="cancelButton"
             onClick={this.cancelModal}
-          > Reject
+          > Cancel
           </button>
-          {this.state.error && <div className="error">NIE WOLNMO!</div>}
         </div>
+          {this.state.error && <div className="error">You have to select any day</div>}
       </Form>
     );
   }

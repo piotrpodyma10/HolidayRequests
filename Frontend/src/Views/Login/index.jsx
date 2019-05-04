@@ -40,7 +40,7 @@ class LoginView extends Component {
             <div className={`field ${this.addErrorClass(this.state.error)}`}>
               <div className='ui left icon input'>
                 <input type='password' placeholder='Password' value={this.state.password}  onChange={(e) => this.setState({password: e.target.value})} />
-                <i className='lock icon xd'></i>
+                <i className='lock icon'></i>
               </div>
             </div>
             <div className="field">
