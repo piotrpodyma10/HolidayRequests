@@ -4,6 +4,7 @@ import Box from '../../Components/Box'
 import { connect } from 'react-redux'
 import { getEmployeeData } from './../../Store/Actions/'
 import Modal from '../../Components/Modal'
+import { createBrowserHistory } from 'history'
 
 
 class Employee extends Component {
@@ -13,7 +14,7 @@ class Employee extends Component {
   }
 
   componentDidMount() {
-    this.props.getEmployeeData(1)
+    this.props.getEmployeeData(2)
   }
 
   openModal = () => {
@@ -34,6 +35,12 @@ class Employee extends Component {
                 <Box title={this.props.employee.modalTitle} modal />
               </div>
               <Box title={"Check your requests history"} />
+              { 
+                this.props.employee.role === "Manager" && 
+                <div onClick={() => createBrowserHistory({ forceRefresh: true }).push('/Manager')}>
+                  <Box title={"Manager view"} />
+                </div>
+              }
             </React.Fragment>
             }
           </div>

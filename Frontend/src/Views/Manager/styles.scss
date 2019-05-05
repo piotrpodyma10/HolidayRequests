@@ -1,0 +1,25 @@
+.managerContainer {
+  color: white;
+  background-image:url("/img/background1.jpg");
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-areas: "sidebar main";
+}
+
+.managerSidebar {
+  grid-area: sidebar;
+  margin: 32px 0px 0px 32px
+}
+
+.managerMain {
+  grid-area: main;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(0, 158, 197, 0.7);
+  border-radius: 25px;
+  margin: 32px 32px 32px 32px;
+}
