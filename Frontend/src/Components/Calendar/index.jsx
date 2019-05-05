@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {  DatesRangeInput } from 'semantic-ui-calendar-react'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Form } from 'semantic-ui-react'
 import moment from 'moment';
 import 'moment/locale/en-gb';
@@ -21,7 +21,7 @@ class DateTimeFormInline extends React.Component {
       endDate: '',
       daysOff: '',
       error: false
-    };
+    }
   }
 
   cancelModal = () => {
@@ -40,6 +40,7 @@ class DateTimeFormInline extends React.Component {
     await this.props.sendLeaveRequest(1,startDate, endDate, true, daysOff, 2)
     await this.props.getEmployeeData(1)
     await this.props.openModal()
+    await this.props.displayRequestBar()
   }
 
   countWorkingDays = (days) => {

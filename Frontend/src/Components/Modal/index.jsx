@@ -5,15 +5,13 @@ import './styles.scss'
 class Modal extends Component {
   render() {
     return (
-      this.props.openedModal && <Fragment>
       <div className="modalContainer">
         <div className="modal">
           <div className="calendar">
-            <DateTimeFormInline openedModal={this.props.openedModal} openModal={this.props.openModal} />
+            <DateTimeFormInline openModal={this.props.openModal} displayRequestBar={this.props.displayRequestBar} />
           </div>
         </div>
       </div>
-      </Fragment>
     )
   }
 }
