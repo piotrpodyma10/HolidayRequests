@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { getEmployeeData } from './../../Store/Actions/'
 import Modal from '../../Components/Modal'
 import RequestBar from '../../Components/RequestBar'
-
+import { Link } from 'react-router-dom'
 
 class Employee extends Component {
 
@@ -42,7 +42,9 @@ class Employee extends Component {
               <div className="eventBox" onClick={() => this.openModal()}>
                 <Box title={this.props.employee.modalTitle} modal />
               </div>
-              <Box title={"Check your requests history"} />
+              <Link to="/RequestHistory">
+                <Box title={"Check your requests history"} />
+              </Link>
             </React.Fragment>
             }
           </div>

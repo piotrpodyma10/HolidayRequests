@@ -7,6 +7,7 @@ import App from './App'
 import thunk from 'redux-thunk'
 import Employee from './Views/Employee'
 import Manager from './Views/Manager'
+import RequestHistory from './Views/RequestHistory'
 import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
@@ -27,6 +28,10 @@ ReactDOM.render(
       <Route
         component={Manager}
         path="/Manager"
+      />
+      <Route
+        component={RequestHistory}
+        path="/RequestHistory"
       />
     </Router>
   </Provider>,
