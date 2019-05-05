@@ -4,12 +4,14 @@ import Box from '../../Components/Box'
 import { connect } from 'react-redux'
 import { getEmployeeData } from './../../Store/Actions/'
 import Modal from '../../Components/Modal'
+import RequestBar from '../../Components/RequestBar'
 
 
 class Employee extends Component {
 
   state = {
-    openedModal: false
+    openedModal: false,
+    successfullyAddedRequest: false
   }
 
   componentDidMount() {
@@ -18,6 +20,13 @@ class Employee extends Component {
 
   openModal = () => {
     this.setState({ openedModal: !this.state.openedModal })
+  }
+
+  displayRequestBar = async () => {
+    this.setState({ successfullyAddedRequest: true})
+    setTimeout(() => {
+      this.setState({ successfullyAddedRequest: false})
+    }, 4000)
   }
 
   render() {
@@ -38,7 +47,8 @@ class Employee extends Component {
             }
           </div>
         </div>
-        <Modal openedModal={this.state.openedModal} openModal={this.openModal} />
+        {this.state.openedModal && <Modal openModal={this.openModal} displayRequestBar={this.displayRequestBar} />}
+        {this.state.successfullyAddedRequest && <RequestBar />}
       </Fragment>
     )
   }
