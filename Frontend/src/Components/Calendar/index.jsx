@@ -5,7 +5,10 @@ import { Form } from 'semantic-ui-react'
 import moment from 'moment';
 import 'moment/locale/en-gb';
 import { connect } from 'react-redux'
-import { sendLeaveRequest } from './../../Store/Actions/'
+import { 
+  sendLeaveRequest,
+  getEmployeeData
+} from './../../Store/Actions/'
 import './styles.scss'
 
 class DateTimeFormInline extends React.Component {
@@ -25,25 +28,33 @@ class DateTimeFormInline extends React.Component {
     this.props.openModal()
   }
 
-  submitModal = (data, e) => {
+  submitModal = async (data, e) => {
     e.preventDefault()
     const { startDate, endDate, daysOff } = data
-    if (daysOff === "0") {
+    
+    if (daysOff === 0) {
       this.setState({ error: true})
       return
     }
 
-    this.props.sendLeaveRequest(1,startDate, endDate, true, daysOff, 2)
-    this.props.openModal()
+    await this.props.sendLeaveRequest(1,startDate, endDate, true, daysOff, 2)
+    await this.props.getEmployeeData(1)
+    await this.props.openModal()
   }
 
   countWorkingDays = (days) => {
     const dates = days.split(' - ')
     const data = {}
-    data.daysOff = "0"
+    data.daysOff = 0
+
     if (dates[0].length < 1) return data
-    data.startDate = moment(dates[0], 'DD-MM-YYYY').format('MM-DD-YYYY')
-    data.daysOff = "1"
+    const startDate = moment(dates[0], 'DD-MM-YYYY')
+    const condition = dates[1].length < 1 && (startDate.isoWeekday() === 6 || startDate.isoWeekday() === 7)
+    
+    if (condition) return data
+    data.startDate = startDate.format('MM-DD-YYYY')
+    data.daysOff = 1
+
     if (dates[1].length < 1) return data
     let start = moment(dates[0], 'DD-MM-YYYY')
     const end = moment(dates[1], 'DD-MM-YYYY')
@@ -67,7 +78,7 @@ class DateTimeFormInline extends React.Component {
 
    render() {
     const data = this.countWorkingDays(this.state.date)
-    const daysOffText = `You take ${data.daysOff} ${data.daysOff === "1" ? 'one day' : 'days'} off`
+    const daysOffText = `You take ${data.daysOff} ${data.daysOff === 1 ? 'day' : 'days'} off`
     return (
       <Form>
         <div className="formHeader">
@@ -99,7 +110,7 @@ class DateTimeFormInline extends React.Component {
           > Cancel
           </button>
         </div>
-          {this.state.error && <div className="error">You have to select any day</div>}
+          {this.state.error && <div className="error">You have to select any business day</div>}
       </Form>
     );
   }
@@ -112,6 +123,7 @@ const mapStateToProps = state => {
 
 export default connect ( 
   mapStateToProps, {
-    sendLeaveRequest
+    sendLeaveRequest,
+    getEmployeeData
   }
 )(DateTimeFormInline)

@@ -51,6 +51,8 @@ namespace HolidayRequests.Controllers
                         ApproverId = request.ApproverId
                     });
 
+                var allDaysOff = _context.Employees.Where(x => x.Id == request.EmployeeId).FirstOrDefault();
+                allDaysOff.ActualLeaveDaysNumber = allDaysOff.ActualLeaveDaysNumber - request.DaysOff;
                 _context.SaveChanges();
 
                 return Ok();
