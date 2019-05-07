@@ -37,8 +37,8 @@ class Calendar extends React.Component {
       return
     }
 
-    await this.props.sendLeaveRequest(1,startDate, endDate, true, daysOff, 2)
-    await this.props.getEmployeeData(1)
+    await this.props.sendLeaveRequest(this.props.userId,startDate, endDate, true, daysOff, 3)
+    await this.props.getEmployeeData(this.props.userId)
     await this.props.openModal()
     await this.props.displayRequestBar()
   }
@@ -122,6 +122,7 @@ class Calendar extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    userId: state.signIn.user.id    
   }
 }
 

@@ -9,7 +9,6 @@ import HolidayReport from '../../Components/HolidayReport'
 import EmployeeManagement from '../../Components/EmployeeManagement'
 import DepartmentManagement from '../../Components/DepartmentManagement'
 
-
 class Manager extends Component {
 
 	state = {
@@ -17,7 +16,7 @@ class Manager extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getEmployeeData(2)
+		this.props.getEmployeeData(this.props.userId)
 	}
 
 	render() {
@@ -126,7 +125,8 @@ class Manager extends Component {
 
 const mapStateToProps = state => {
   return {
-	employee: state.employee.employee
+    employee: state.employee.employee,
+    userId: state.signIn.user.id
   }
 }
 

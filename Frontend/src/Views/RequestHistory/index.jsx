@@ -45,7 +45,6 @@ class RequestHistory extends Component {
   }
 
   displayRequestBar = async (type = 'update') => {
-    console.log("TYPY", type);
     this.setState({ showTypeOfBar: type})
     setTimeout(() => {
       this.setState({ showTypeOfBar: false})
@@ -53,7 +52,7 @@ class RequestHistory extends Component {
   }
 
   componentDidMount() {
-    this.props.getLeaveRequestsByUser(1)
+    this.props.getLeaveRequestsByUser(this.props.userId)
   }
 
   render() {
@@ -100,7 +99,8 @@ class RequestHistory extends Component {
 
 const mapStateToProps = state => {
   return {
-    requests: state.requestsByUser.requestsByUser
+    requests: state.requestsByUser.requestsByUser,
+    userId: state.signIn.user.id
   }
 }
 

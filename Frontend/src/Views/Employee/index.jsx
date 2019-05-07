@@ -16,7 +16,7 @@ class Employee extends Component {
   }
 
   componentDidMount() {
-    this.props.getEmployeeData(2)
+    this.props.getEmployeeData(this.props.userId)
   }
 
   openModal = () => {
@@ -65,7 +65,8 @@ class Employee extends Component {
 
 const mapStateToProps = state => {
   return {
-    employee: state.employee.employee
+    employee: state.employee.employee,
+    userId: state.signIn.user.id
   }
 }
 

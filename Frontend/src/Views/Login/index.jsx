@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { signInUser } from '../../Store/Actions/userActions'
 import { connect } from 'react-redux'
-import { createBrowserHistory } from 'history'
+import { withRouter } from 'react-router-dom'
 import './styles.scss'
 
 class LoginView extends Component {
@@ -18,7 +18,7 @@ class LoginView extends Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.user !== this.props.user) {
       if(nextProps.user.role) {
-        createBrowserHistory({ forceRefresh: true }).push(`/${nextProps.user.role}`)
+        this.props.history.push(`/${nextProps.user.role}`)
       } else {
         this.setState({ error: true})
       }
@@ -65,4 +65,4 @@ export default connect (
   mapStateToProps, {
     signInUser
   }
-)(LoginView)
+)(withRouter(LoginView))

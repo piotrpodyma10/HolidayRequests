@@ -8,8 +8,8 @@ class ActionModal extends Component {
   deleteSelectedRequest = async (id, e) => {
     e.preventDefault()
     await this.props.deleteLeaveRequest(id)
-    await this.props.getLeaveRequestsByUser(1)
-    await this.props.getEmployeeData(1)
+    await this.props.getLeaveRequestsByUser(this.props.userId)
+    await this.props.getEmployeeData(this.props.userId)
     await this.props.openModal()
     await this.props.displayRequestBar('delete')
   }
@@ -56,6 +56,7 @@ class ActionModal extends Component {
 
 const mapStateToProps = state => {
   return {
+    userId: state.signIn.user.id
   }
 }
 
