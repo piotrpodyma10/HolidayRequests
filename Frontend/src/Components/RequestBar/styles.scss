@@ -1,19 +1,19 @@
 .requestBar {
   width: 100vw;
-    background-color: rgba(3, 197, 0, 0.82);
-    color: white;
-    top: 0;
-    position: fixed;
-    margin: 0 !important;
-    left: 0;
-    text-align: center;
-    padding: 14px;
-    transition: 2s;
-    animation: barAnimation 4s infinite;
+  background-color: rgba(3, 197, 0, 0.95);
+  color: white;
+  top: 0;
+  position: fixed;
+  margin: 0 !important;
+  left: 0;
+  text-align: center;
+  padding: 16px;
+  transition: 2s;
+  animation: barAnimation 4s infinite;
 }
 
 @keyframes barAnimation {
-  0%   { opacity: 0; }
+  0% { opacity: 0; }
   50% { opacity: 1; }
   100% { opacity: 0; }
 }

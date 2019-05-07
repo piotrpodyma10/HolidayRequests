@@ -1,8 +1,95 @@
+.requestHistoryContainer.blurBackground {
+  filter: brightness(0.6) blur(4px);
+}
+
 .requestHistoryContainer {
   background-image:url("/img/background22.jpg");
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  width: 100vw;
+  position: absolute;
+  display: inline-table;
+  height: 100%;
+  width: 100%;
+
+  .menu {
+    height: 50px;
+    width: 100vw;
+    background-color: rgba(0, 144, 137, 0.75);
+    .icon {
+      font-size: 30px;
+      color: white;
+      width:50px;
+      height: 50px;
+      padding: 10px;
+      transition: 2s;
+      float:left;
+      &:hover {
+        background-color: black;
+        transition: 2s;
+        cursor:pointer;
+      }
+    }
+    .title{
+      float:left;
+      text-align: center;
+      margin-left: 3px;
+      font-size: 22px;
+      color: white;
+      font-weight: bold;
+      padding: 14px;
+    }
+  }
+
+  .requestHistory {
+    margin: 30px;
+    background-color: rgba(26, 20, 20, 0.8);
+    border-radius: 1%;
+    width: 975px;
+    padding: 10px;
+    .requestRowHeader {
+      margin: 5px 10px;
+      width: 935px;
+      color: white;
+      padding: 5px 5px;
+      background-color: rgba(21, 197, 208, 0.7);
+      transition: 2;
+      display: inline-block;
+
+      &:hover {
+        background-color: rgba(21, 197, 208, .9);
+        transition: 2;
+      }
+      &> * {
+        float:left;
+        margin: 20px;
+      }
+      .startDateHeader {
+        width: 75px;
+      }
+      .endDateHeader {
+        width: 75px;
+      }
+      .daysOffHeader {
+        width: 90px;
+      }
+      .statusHeader {
+        width: 65px;
+      }
+      .approverNameHeader {
+        width: 140px;
+      }
+      .approverRoleHeader {
+        width: 120px;
+      }
+      .actionsHeader {
+        width: 75px;
+      }
+      .startDateHeader, .endDateHeader, .daysOffHeader,
+      .statusHeader, .approverNameHeader, .approverRoleHeader,
+      .actionsHeader {
+        text-align: center;
+      }
+    }
+  }
 }

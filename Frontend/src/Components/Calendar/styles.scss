@@ -58,7 +58,8 @@
   }
 
   .cancelButton {
-    float: left;
+    float: right;
+    margin-right: 15px;
     background-color: rgba(7, 69, 93, 0.8);
     &:hover {
       background-color:#908f8f;

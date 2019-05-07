@@ -1,4 +1,9 @@
-import { employeeData, sendRequest } from '../../Models/employee'
+import { 
+  employeeData, 
+  sendRequest, 
+  leaveRequestsByUser,
+  deleteRequest
+} from '../../Models/employee'
 
 export const getEmployeeData = (id) => async dispatch => {
   const response = await employeeData(id)
@@ -28,6 +33,24 @@ export const sendLeaveRequest = (
 
   dispatch({ 
     type: 'POST_LEAVE_REQUEST', 
+    payload: response 
+  })
+}
+
+export const getLeaveRequestsByUser = (id) => async dispatch => {
+  const response = await leaveRequestsByUser(id)
+
+  dispatch({ 
+    type: 'FETCH_LEAVE_REQUESTS_BY_USER', 
+    payload: response 
+  })
+}
+
+export const deleteLeaveRequest = (id) => async dispatch => {
+  const response = await deleteRequest(id)
+  
+  dispatch({ 
+    type: 'DELETE_LEAVE_REQUEST', 
     payload: response 
   })
 }

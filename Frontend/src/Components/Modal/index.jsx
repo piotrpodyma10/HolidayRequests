@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import DateTimeFormInline from './../Calendar/'
+import React, { Component } from 'react'
+import Calendar from './../Calendar/'
 import './styles.scss'
 
 class Modal extends Component {
@@ -8,7 +8,7 @@ class Modal extends Component {
       <div className="modalContainer">
         <div className="modal">
           <div className="calendar">
-            <DateTimeFormInline openModal={this.props.openModal} displayRequestBar={this.props.displayRequestBar} />
+            <Calendar openModal={this.props.openModal} displayRequestBar={this.props.displayRequestBar} />
           </div>
         </div>
       </div>

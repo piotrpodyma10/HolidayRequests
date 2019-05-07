@@ -1,0 +1,39 @@
+button {
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 5%;
+  border: solid white 2px;
+  color: white;
+  transition: 2s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 2s;
+  }
+}
+
+.button.deleteButtonsWrapper {
+  margin: 30px 30px 15px 30px;
+  padding: 30px 15px;
+}
+
+.deleteTitle {
+  padding: 30px;
+}
+
+.deleteButton {
+  float: right;
+  background-color: rgba(7, 69, 93, 0.8);
+  &:hover {
+    background-color: #02a1b1;
+  }
+}
+
+.cancelButton {
+  float: right;
+  margin-right: 15px;
+  background-color: rgba(7, 69, 93, 0.8);
+  &:hover {
+    background-color:#908f8f;
+  }
+}

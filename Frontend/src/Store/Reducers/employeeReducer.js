@@ -15,3 +15,21 @@ export const leaveRequestReducer = (state = [], action) => {
       return state
   }
 }
+
+export const leaveRequestsByUsereducer = (state = [], action) => {
+  switch (action.type) {
+    case 'FETCH_LEAVE_REQUESTS_BY_USER':
+      return {...state, requestsByUser: action.payload}
+    default:
+      return state
+  }
+}
+
+export const deleteLeaveRequestReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'DELETE_LEAVE_REQUEST':
+      return {...state, leaveRequest: action.payload}
+    default:
+      return state
+  }
+}

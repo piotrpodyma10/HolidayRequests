@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {  DatesRangeInput } from 'semantic-ui-calendar-react'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Form } from 'semantic-ui-react'
 import moment from 'moment';
 import 'moment/locale/en-gb';
@@ -11,12 +11,12 @@ import {
 } from './../../Store/Actions/'
 import './styles.scss'
 
-class DateTimeFormInline extends React.Component {
+class Calendar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      date: '',
+      date: this.props.selectedDate || '',
       startDate: '',
       endDate: '',
       daysOff: '',
@@ -66,8 +66,9 @@ class DateTimeFormInline extends React.Component {
       if (start.isoWeekday() === 6 || start.isoWeekday() === 7) daysOff --
       start = start.add(1, 'days');
     }
-    data.daysOff = daysOff
+    data.daysOff = daysOff || this.props.daysOff
     data.endDate = end.format('MM-DD-YYYY')
+
     return data
   }
 
@@ -80,6 +81,8 @@ class DateTimeFormInline extends React.Component {
    render() {
     const data = this.countWorkingDays(this.state.date)
     const daysOffText = `You take ${data.daysOff} ${data.daysOff === 1 ? 'day' : 'days'} off`
+    const displayAcceptButton = this.props.selectedDate !== this.state.date && (this.props.selectedDate !== (this.state.date + 'Invalid date'))
+    
     return (
       <Form>
         <div className="formHeader">
@@ -100,11 +103,11 @@ class DateTimeFormInline extends React.Component {
           onChange={this.handleChange}
         />
         <div className="buttons">
-          <button 
+          {displayAcceptButton && <button
             className="acceptButton"
             onClick={(e) => this.submitModal(data, e)}
           > Accept
-          </button>
+          </button>}
           <button 
             className="cancelButton"
             onClick={this.cancelModal}
@@ -113,7 +116,7 @@ class DateTimeFormInline extends React.Component {
         </div>
           {this.state.error && <div className="error">You have to select any business day</div>}
       </Form>
-    );
+    )
   }
  }
 
@@ -127,4 +130,4 @@ export default connect (
     sendLeaveRequest,
     getEmployeeData
   }
-)(DateTimeFormInline)
+)(Calendar)

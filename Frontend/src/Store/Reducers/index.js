@@ -4,11 +4,15 @@ import {
 } from './userReducers'
 import {
   employeeDataReducer,
-  leaveRequestReducer
+  leaveRequestReducer,
+  leaveRequestsByUsereducer,
+  deleteLeaveRequestReducer
 } from './employeeReducer'
 
 export default combineReducers({
   signIn: signInReducer,
   employee: employeeDataReducer,
-  leaveRequest: leaveRequestReducer
+  leaveRequest: leaveRequestReducer,
+  requestsByUser: leaveRequestsByUsereducer,
+  deleteRequest: deleteLeaveRequestReducer
 })

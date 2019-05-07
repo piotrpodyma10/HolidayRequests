@@ -1,7 +1,7 @@
 .modalContainer {
     background-color: rgba(7, 69, 93, 0.8);
     color: white;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -11,10 +11,9 @@
     bottom: 0;
     margin-top: auto;
     margin-bottom: auto;
-    min-height: 540px;
-    max-height: 555px;
+    height: fit-content;
     border-radius: 3%;
-
+    box-shadow: 2px 2px 10px 10px #ffffff;
   .calendar {
     margin-top: auto;
     margin-bottom: auto;

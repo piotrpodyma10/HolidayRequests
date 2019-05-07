@@ -3,6 +3,7 @@ using HolidayRequests.Data.Data;
 using HolidayRequests.Requests.LeaveRequest;
 using HolidayRequests.ViewModels.LeaveRequest;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,28 @@ namespace HolidayRequests.Controllers
         }
 
         [HttpGet("GetLeaveRequestByUser")]
-        public ActionResult<IEnumerable<LeaveRequestViewModel>> GetLeaveRequestByUser(LeaveRequestByUserRequest request)
+        public ActionResult<IEnumerable<LeaveRequestViewModel>> GetLeaveRequestByUser(LeaveRequestsByUserRequest request)
         {
             try
             {
-                var leaveRequests = _context.LeaveRequests.Where(l => l.Id == request.Id);
+                var leaveRequests = _context.LeaveRequests
+                    .Where(l => l.EmployeeId == request.Id)
+                    .Join(_context.Employees, x => x.ApproverId, z => z.Id, (x, y) => new
+                    {
+                        LeaveRequest = x,
+                        Employee = y
+                    })
+                    .Join(_context.UserRoles, x => x.Employee.Id, y => y.EmployeeId, (x, y) => new LeaveRequestViewModel
+                    {
+                        RequestId = x.LeaveRequest.Id,
+                        StartDate = x.LeaveRequest.StartDate.Date.ToString(),
+                        EndDate = x.LeaveRequest.EndDate != null ? x.LeaveRequest.EndDate.ToString().Substring(0,10) : "-",
+                        DaysOff = x.LeaveRequest.DaysOff,
+                        Status = x.LeaveRequest.Status,
+                        ApproverName = x.Employee.FirstName + " " + x.Employee.LastName,
+                        ApproverRole = y.Role.Name,
+                        Actions = x.LeaveRequest.Status != "Open" ? false : true 
+                    });
 
                 return Ok(leaveRequests);
             }
@@ -95,10 +113,13 @@ namespace HolidayRequests.Controllers
         {
             try
             {
-                var findLeaveRequest = _context.LeaveRequests.Where(e => e.Id == request.Id).FirstOrDefault(); ;
+                var findLeaveRequest = _context.LeaveRequests.Where(e => e.Id == request.Id).FirstOrDefault();
 
                 if (findLeaveRequest != null)
                 {
+                    var actualLeaveDays = _context.Employees.Where(x => x.Id == findLeaveRequest.EmployeeId).FirstOrDefault().ActualLeaveDaysNumber;
+                    var employee = _context.Employees.Where(x => x.Id == findLeaveRequest.EmployeeId).FirstOrDefault();
+                    employee.ActualLeaveDaysNumber = employee.ActualLeaveDaysNumber + findLeaveRequest.DaysOff;
                     _context.LeaveRequests.Remove(findLeaveRequest);
                     _context.SaveChanges();
                 }
