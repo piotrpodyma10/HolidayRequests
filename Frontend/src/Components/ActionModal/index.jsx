@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import DateTimeFormInline from './../Calendar/'
+import Calendar from './../Calendar/'
 import { getLeaveRequestsByUser, deleteLeaveRequest, getEmployeeData } from './../../Store/Actions'
 import { connect } from 'react-redux'
 import './styles.scss'
@@ -20,8 +20,9 @@ class ActionModal extends Component {
       <Fragment>
         <div className="modalContainer">
           <div className="modal">
-            {editModal && 
-              <DateTimeFormInline 
+            {editModal 
+              && 
+              <Calendar 
                 openModal={this.props.openModal} 
                 selectedDate={this.props.selectedDate} 
                 daysOff={daysOff} 
