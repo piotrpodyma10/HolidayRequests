@@ -52,6 +52,36 @@ namespace HolidayRequests.Controllers
             }
         }
 
+        [HttpGet("GetOpenLeaveRequest")]
+        public ActionResult<IEnumerable<OpenLeaveRequestsViewModel>> GetOpenLeaveRequest(LeaveRequestsByUserRequest request)
+        {
+            try
+            {
+                var leaveRequests = _context.LeaveRequests
+                    .Where(l => l.ApproverId == request.Id && l.Status == "Open")
+                    .Join(_context.Employees, x => x.EmployeeId, z => z.Id, (x, y) => new
+                    {
+                        LeaveRequest = x,
+                        Employee = y
+                    })
+                    .Join(_context.UserRoles, x => x.Employee.Id, y => y.EmployeeId, (x, y) => new OpenLeaveRequestsViewModel
+                    {
+                        EmployeeName = x.Employee.FirstName + " " + x.Employee.LastName,
+                        EmployeeRole = y.Role.Name,
+                        StartDate = x.LeaveRequest.StartDate.Date.ToString(),
+                        EndDate = x.LeaveRequest.EndDate != null ? x.LeaveRequest.EndDate.ToString().Substring(0, 10) : "-",
+                        DaysOff = x.LeaveRequest.DaysOff,
+                        RequestId = x.LeaveRequest.Id
+                    });
+
+                return Ok(leaveRequests);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("SendLeaveRequest")]
         public IActionResult SendLeaveRequest([FromBody] SendLeaveRequest request)
         {
