@@ -1,14 +1,19 @@
 .managerContainer {
   color: white;
   background-image:url("/img/background35.jpg");
+  position: absolute;
+  display: inline-table;
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-areas: "sidebar main";
+  height: 100%;
+  width: 100%;
+
+  & .managerWrapper {
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-areas: "sidebar main";
+  }
 }
 
 .managerSidebar {

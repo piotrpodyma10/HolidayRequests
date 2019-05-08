@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import './styles.scss'
 import Box from '../../Components/Box'
 import { connect } from 'react-redux'
-import { getEmployeeData } from './../../Store/Actions/'
+import { getEmployeeData, getOpenLeaveRequests } from './../../Store/Actions/'
 import { createBrowserHistory } from 'history'
 import HolidayRequests from '../../Components/HolidayRequests'
 import HolidayReport from '../../Components/HolidayReport'
@@ -16,14 +16,17 @@ class Manager extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getEmployeeData(this.props.userId)
+    this.props.getEmployeeData(this.props.userId)
+    this.props.getOpenLeaveRequests(this.props.userId)
 	}
 
 	render() {
 		return (
 			<div className='managerContainer'>
-				{this.renderSidebar()}
-				{this.renderBoard()}
+        <div className='managerWrapper'>
+          {this.renderSidebar()}
+          {this.renderBoard()}
+        </div>
 			</div>
 		)
 	}
@@ -35,7 +38,7 @@ class Manager extends Component {
 					this.props.employee && 
 					<React.Fragment>
 						<div onClick={() => this.setState({context: 'HOLIDAY_REQUESTS'})}>
-							<Box title={'Pending leave requests:'} value={'5'}/>
+							<Box title={'Pending leave requests:'} value={this.props.numberOfPendingRequests}/>
 						</div>
 						<div onClick={() => this.setState({context: 'EMPLOYEE_MANAGEMENT'})}>
 							<Box title={'Employee management'} />
@@ -73,7 +76,7 @@ class Manager extends Component {
 							</div>	
 							
 							<div className='row'>
-								<HolidayRequests />
+								<HolidayRequests openRequests={this.props.openRequests} />
 							</div>
 						</div>
 					);
@@ -126,12 +129,15 @@ class Manager extends Component {
 const mapStateToProps = state => {
   return {
     employee: state.employee.employee,
-    userId: state.signIn.user.id
+    userId: state.signIn.user.id,
+    openRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.openLeaveRequests || [],
+    numberOfPendingRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.numberOfRequests || 0
   }
 }
 
 export default connect ( 
   mapStateToProps, {
-	getEmployeeData
+  getEmployeeData,
+  getOpenLeaveRequests
   }
 )(Manager)

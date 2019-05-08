@@ -1,0 +1,59 @@
+.header > img {
+  width: 50px !important;
+}
+
+table {
+  & td {
+    padding: 10px !important;
+
+    & button {
+      margin: 10px !important;
+    }
+
+  }
+
+  & thead, tr {
+    text-align: center;
+  }
+
+  
+
+  & .actions {
+    padding: 0 0 14px 0 !important;
+  }
+}
+
+tbody tr {
+  &:hover {
+    background-color: #bd7d16db;
+    color:white !important;
+
+    & .content, .sub.header {
+      color: white !important;
+    }
+  }
+}
+
+.acceptRequest, .rejectRequest {
+  font-size: 20px;
+
+}
+
+.acceptRequest {
+  color: green;
+
+  &:hover {
+    background-color: green;
+    color: white;
+  }
+}
+
+.rejectRequest {
+  color: darkred;
+
+  &:hover {
+    background-color: darkred;
+    color: white;
+
+  }
+}

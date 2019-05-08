@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "faker": "^4.1.0",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",

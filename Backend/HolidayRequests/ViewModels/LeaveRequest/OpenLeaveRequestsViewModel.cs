@@ -10,6 +10,7 @@ namespace HolidayRequests.ViewModels.LeaveRequest
         public int RequestId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeRole { get; set; }
+        public string DepartmentName { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int DaysOff { get; set; }

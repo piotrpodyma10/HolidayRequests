@@ -53,7 +53,7 @@ namespace HolidayRequests.Controllers
         }
 
         [HttpGet("GetOpenLeaveRequest")]
-        public ActionResult<IEnumerable<OpenLeaveRequestsViewModel>> GetOpenLeaveRequest(LeaveRequestsByUserRequest request)
+        public ActionResult<IEnumerable<ListOpenLeaveRequestsViewModel>> GetOpenLeaveRequest(LeaveRequestsByUserRequest request)
         {
             try
             {
@@ -71,10 +71,17 @@ namespace HolidayRequests.Controllers
                         StartDate = x.LeaveRequest.StartDate.Date.ToString(),
                         EndDate = x.LeaveRequest.EndDate != null ? x.LeaveRequest.EndDate.ToString().Substring(0, 10) : "-",
                         DaysOff = x.LeaveRequest.DaysOff,
-                        RequestId = x.LeaveRequest.Id
-                    });
+                        RequestId = x.LeaveRequest.Id,
+                        DepartmentName = x.Employee.Department.Name
+                    }).ToList();
 
-                return Ok(leaveRequests);
+                var allRequests = new ListOpenLeaveRequestsViewModel
+                {
+                    NumberOfRequests = leaveRequests.Count(),
+                    OpenLeaveRequests = leaveRequests
+                };
+
+                return Ok(allRequests);
             }
             catch (Exception)
             {

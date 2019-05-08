@@ -20,6 +20,12 @@
     width: 65px;
     text-align: center;
   }
+    .status.accepted {
+      color: lime;
+    }
+    .status.rejected {
+      color: #ffb900;
+    }
 
   .endDate, .startDate {
     width: 75px;
