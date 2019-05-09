@@ -2,34 +2,37 @@
   width: 50px !important;
 }
 
-table {
-  & td {
-    padding: 10px !important;
 
-    & button {
-      margin: 10px !important;
+.managerMain {
+  & table {
+    & td {
+      padding: 10px !important;
+
+      & button {
+        margin: 10px !important;
+      }
+
     }
 
+    & thead, tr {
+      text-align: center;
+    }
+
+    
+
+    & .actions {
+      padding: 0 0 14px 0 !important;
+    }
   }
 
-  & thead, tr {
-    text-align: center;
-  }
+  & tbody tr {
+    &:hover {
+      background-color: #bd7d16db;
+      color:white !important;
 
-  
-
-  & .actions {
-    padding: 0 0 14px 0 !important;
-  }
-}
-
-tbody tr {
-  &:hover {
-    background-color: #bd7d16db;
-    color:white !important;
-
-    & .content, .sub.header {
-      color: white !important;
+      & .content, .sub.header {
+        color: white !important;
+      }
     }
   }
 }
