@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+        .container {
+            background-color: #002f41;
+            background-image: url("https://lh3.googleusercontent.com/yBnEiXEWzkAEHAp4GuAX41qbuI6vNcwnGiEoJDwrI-9w0zfb12JjDo4SBkVDOB1rU_8L5b7c473YKP1brJoFSCxrlUTOHaQ-lqmNAM2QZ-zDXLINcKag55xf3ChCunLa1-vTgsbMs-LA_55uizfOY9h9GDj307z4nZe5AY2ZsYdzR_Xz3a3WRbzrJQMXs4k-5a6viLMWU576vwrc6we-M5KtQKdal2x8fFkaH65iyVjC55X1pUaoDsyIumW70QvBOlmlrOKi2rERLk9A19Sr_20dyZdCucMAZ4r59EqoFZwcNHBVi1zG-sssBCfsoK8L9su1-giRLWeETtJSjR9nAIkr-q0rGLgXJmXiSBjz6hK78qY0RSzgIOh8IC7DWE4Em1N3Bqosh0ux1rpFrCeypANOd1AWpbGbByx0wCM22Hem7YqrmzE8PIzJ6XlUYGJN_az5fCj0ryOgNqAnqE2gz1cVJevoZnT6BTcw1cPWG3F2YQ2Ai-SFMIN6vcbVo4275nrLxV8xZliECKINdDPZxH12gjgraY0ZghIsg1AYlVLcTdEDGdqC1fycBbzCOYwPhpjheRCAIDAX3xfpXxmgxEISAlvUYQ4SxMhqLv9WIO0x7vYYzHhtimnqZAI13JauRe_6R5Llyp6epUtjFhoJYzESYXuATyg=w960-h640-no");
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            height: 800px;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-content: center;
+        }
+        .wrapper {
+            border: white solid 2px;
+            margin: auto;
+            background-color: rgba(0, 47, 65, 0.75);
+            padding: 25px;
+            height: fit-content;
+        }
+
+        table {
+            font-size: 18px;
+            color: #02e7ef;
+            border: white solid 2px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        td {
+            padding: 10px 25px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h1>
+                You received the leave request from {employeeName}
+            </h1>
+            <br />
+            <br />
+            <div>
+                <table>
+                    <tr>
+                        <td><b>Name</b></td>
+                        <td>{employeeName}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Start date</b></td>
+                        <td>{startDate}</td>
+                    </tr>
+                    <tr>
+                        <td><b>End date</b></td>
+                        <td>{endDate}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Number of days off</b></td>
+                        <td>{daysOff}</td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <h2>
+                    The employee is waiting for your decision.
+                </h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
