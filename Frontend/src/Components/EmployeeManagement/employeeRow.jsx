@@ -1,35 +1,42 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import faker from 'faker'
+import './styles.scss'
 
 class EmployeeRow extends React.Component {
-
-    render() {
-        return (
-            <tr>
-                <td>
-                    <h4 className='ui image header'>
-                        <img src='/images/avatar2/small/lena.png' className='ui mini rounded image'/>
-                        <div className='content'>
-                            {this.props.employee.firstName} {this.props.employee.lastName}
-                            <div className='sub header'>{this.props.employee.departmentName}</div>
-                        </div>
-                    </h4>
-                </td>
-                <td>
-                    {this.props.employee.roleName}
-                </td>
-                <td>
-                    {this.props.employee.maxLeaveDays}
-                </td>
-                <td className='right aligned'>
-                    <button className='circular ui icon button'>
-                        <i className='pencil alternate icon'></i>
-                    </button>
-                    <button className='circular ui icon red button'>
-                        <i className='trash alternate icon'></i>
-                    </button>
-                </td>
-            </tr>
-        );
+  render() {
+      return (
+          <tr>
+              <td className='left aligned'>
+                  <h4 className='ui image header'>
+                      <img alt='img' src={`${faker.image.avatar()}`} className='ui circular image'/>
+                      <div className='content'>
+                          {this.props.employee.name} 
+                          <div className='sub header'>{this.props.employee.departmentName}</div>
+                      </div>
+                  </h4>
+              </td>
+              <td>
+                  {this.props.employee.role}
+              </td>
+              <td>
+                  {this.props.employee.setDaysOff}
+              </td>
+              <td>
+                  {this.props.employee.actualDaysOff}
+              </td>
+              <td>
+                  <button 
+                    className='editEmployee'
+                    onClick={(e) => this.props.openModal(this.props.employee, e)}
+                  >
+                      <i className='pencil alternate icon'></i>
+                  </button>
+                  <button className='deleteEmployee'>
+                      <i className='trash alternate icon'></i>
+                  </button>
+              </td>
+          </tr>
+      );
     }
 }
 

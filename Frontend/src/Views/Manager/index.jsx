@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import './styles.scss'
 import Box from '../../Components/Box'
 import { connect } from 'react-redux'
-import { getEmployeeData, getOpenLeaveRequests } from './../../Store/Actions/'
+import { getEmployeeData, getOpenLeaveRequests, getAllEmployees } from './../../Store/Actions/'
 import { createBrowserHistory } from 'history'
 import HolidayRequests from '../../Components/HolidayRequests'
 import HolidayReport from '../../Components/HolidayReport'
@@ -18,6 +18,7 @@ class Manager extends Component {
 	componentDidMount() {
     this.props.getEmployeeData(this.props.userId)
     this.props.getOpenLeaveRequests(this.props.userId)
+    this.props.getAllEmployees()
 	}
 
 	render() {
@@ -88,7 +89,7 @@ class Manager extends Component {
 							</div>	
 							
 							<div className='row'>
-								<EmployeeManagement />
+								<EmployeeManagement allEmployees={this.props.allEmployees} />
 							</div>
 						</div>
 					);
@@ -127,17 +128,21 @@ class Manager extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("XD", state);
+  
   return {
     employee: state.employee.employee,
     userId: state.signIn.user.id,
     openRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.openLeaveRequests || [],
-    numberOfPendingRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.numberOfRequests || 0
+    numberOfPendingRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.numberOfRequests || 0,
+    allEmployees: state.allEmployeeData.allEmployees || []
   }
 }
 
 export default connect ( 
   mapStateToProps, {
   getEmployeeData,
-  getOpenLeaveRequests
+  getOpenLeaveRequests,
+  getAllEmployees
   }
 )(Manager)

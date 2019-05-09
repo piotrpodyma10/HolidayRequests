@@ -111,5 +111,13 @@ namespace HolidayRequests.Controllers
                 throw e;
             }
         }
+
+        [HttpGet("GetRoles")]
+        public ActionResult<IEnumerable<RoleViewModel>> GetRoles()
+        {
+            var response = _context.Roles;
+
+            return Ok(response);
+        }
     }
 }

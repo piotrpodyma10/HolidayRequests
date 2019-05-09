@@ -51,6 +51,30 @@ namespace HolidayRequests.Controllers
             }
         }
 
+        [HttpGet("GetAllEmployees")]
+        public ActionResult<IEnumerable<List<string>>> GetAllEmployees()
+        {
+            try
+            {
+                var employee = _context.Employees
+                    .Join(_context.UserRoles, x => x.Id, y => y.EmployeeId, (x, y) => new
+                    {
+                        name = x.FirstName + " " + x.LastName,
+                        actualDaysOff = x.ActualLeaveDaysNumber,
+                        setDaysOff = x.LeaveDaysPerYear,
+                        role = y.Role.Name,
+                        departmentName = x.Department.Name,
+                        employeeId = x.Id
+                    }).ToList();
+
+                return Ok(employee);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [Authorize(Roles = "Administrator, HR-Manager")]
         [HttpPost("AddNewEmployee")]
         public IActionResult AddNewEmployee ([FromBody] NewEmployeeRequest request)
@@ -84,16 +108,22 @@ namespace HolidayRequests.Controllers
             try
             {
                 var findEmployee = _context.Employees.Where(e => e.Id == request.Id).FirstOrDefault();
+                var employeeRole = _context.UserRoles.Where(e => e.EmployeeId == request.Id).FirstOrDefault();
+                var xd = request.EmployeeName.Split(" ");
+                var dd = xd[0];
+                var kk = xd[1];
 
-                if (findEmployee != null)
+                if (findEmployee != null && employeeRole != null)
                 {
-                    findEmployee.FirstName = request.FirstName;
-                    findEmployee.LastName = request.LastName;
+
+                    //findEmployee.FirstName = request.EmployeeName.Split;
+                    //findEmployee.LastName = request.LastName;
+                    findEmployee.LeaveDaysPerYear = request.LeaveDaysPerYear;
                     findEmployee.ActualLeaveDaysNumber = request.ActualLeaveDaysNumber;
                     findEmployee.DepartmentId = request.DepartmentId;
-                    findEmployee.LeaveDaysPerYear = request.LeaveDaysPerYear;
+                    employeeRole.RoleId = request.RoleId;
 
-                    _context.SaveChanges();
+                    //_context.SaveChanges();
                 }
                 else
                 {

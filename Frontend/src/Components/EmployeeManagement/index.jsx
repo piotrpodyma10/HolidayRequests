@@ -1,53 +1,73 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import EmployeeRow from './employeeRow';
+import EmployeeRow from './employeeRow'
+import { getRoles, getDepartments, editEmployeeRequest } from './../../Store/Actions'
+// import EditEmployeeModal from './../'
+import EditEmployeeModal from './../EditEmployeeModal'
 
 class EmployeeManagement extends React.Component {
+  state = {
+    displayModal: false,
+    selectedEmployee: {}
+  } 
 
-    render() {
-        return (
-            <table className='ui very basic padded table' style={{ padding: '0px 32px' }}>
-                <thead>
-                    <tr>
-                        <th>Employee</th>
-                        <th>Role</th>
-                        <th>Max leave days</th>
-                        <th className='right aligned'>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.employees.map( employee => <EmployeeRow employee={employee} /> )}
-                </tbody>
-            </table>
-        );
-    }
+  componentDidMount() {
+    this.props.getRoles()
+    this.props.getDepartments()
+  }
+  
+  openModal = (employee, e) => {
+    e.preventDefault()
+    
+    this.setState({ displayModal: !this.state.displayModal, selectedEmployee: employee })
+    console.log("emp", employee);
+    
+  }
+  
+  
+  render() {
+    console.log("DDZD", this.props);
+    const { displayModal, selectedEmployee } = this.state
+    const { roles, departments } = this.props
+
+    return (
+      <Fragment>
+        <table className='ui very basic padded table' style={displayModal && {filter: "blur(4px)", padding: "0 32px"} || {padding: "0 32px"}} >
+            <thead>
+                <tr>
+                    <th className='left aligned'>Employee</th>
+                    <th>Role</th>
+                    <th>Actual number of days off</th>
+                    <th>Set days off</th>
+                    <th className='actions'>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {this.props.allEmployees.map(employee => <EmployeeRow employee={employee} openModal={this.openModal}/> )}
+            </tbody>
+        </table>
+        {displayModal && <EditEmployeeModal 
+          selectedEmployee={selectedEmployee} 
+          departments={departments}
+          roles={roles}
+        />}
+        </Fragment>
+      );
+  }
 }
 
 const mapStateToProps = state => {
+  console.log('SZT2', state)
   return {
-    employees: [{
-        firstName: 'A_First',
-        lastName: 'A_Last',
-        departmentName: 'A_Dept',
-        roleName: 'A_Role',
-        maxLeaveDays: 22
-    },{
-        firstName: 'B_First',
-        lastName: 'B_Last',
-        departmentName: 'B_Dept',
-        roleName: 'B_Role',
-        maxLeaveDays: 22
-    },{
-        firstName: 'C_First',
-        lastName: 'C_Last',
-        departmentName: 'C_Dept',
-        roleName: 'C_Role',
-        maxLeaveDays: 22
-    }],
+    roles: state.roles.roles,
+    departments: state.departments.departments
   }
 }
 
 export default connect ( 
   mapStateToProps, {
+    editEmployeeRequest,
+    getRoles,
+    getDepartments
   }
 )(EmployeeManagement)

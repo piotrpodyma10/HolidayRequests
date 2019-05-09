@@ -4,13 +4,12 @@
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
-
+  display: inline-table;
+  position: absolute;
   .boxList {
     display: inline-block;
     width: 550px;
   }
-
 }
-

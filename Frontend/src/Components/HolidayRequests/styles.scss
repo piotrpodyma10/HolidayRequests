@@ -2,7 +2,6 @@
   width: 50px !important;
 }
 
-
 .managerMain {
   & table {
     & td {
@@ -37,12 +36,12 @@
   }
 }
 
-.acceptRequest, .rejectRequest {
+.acceptRequest, .rejectRequest, .editEmployee, .deleteEmployee {
   font-size: 20px;
 
 }
 
-.acceptRequest {
+.acceptRequest, .editEmployee {
   color: green;
 
   &:hover {
@@ -51,7 +50,7 @@
   }
 }
 
-.rejectRequest {
+.rejectRequest, .deleteEmployee {
   color: darkred;
 
   &:hover {

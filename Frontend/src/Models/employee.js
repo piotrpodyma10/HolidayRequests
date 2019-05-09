@@ -69,3 +69,64 @@ export const deleteRequest = async (id) => {
 
   return await result
 }
+
+export const allEmployeeData = async () => {
+  let result
+  await axios.get(`${BASE_URL}/GetAllEmployees`)
+    .then(employee => {
+      result = employee.data
+  }).catch(error => {
+    console.log(error)
+  })
+
+  return await result
+}
+
+export const departments = async () => {
+  let result
+  await axios.get(`${BASE_URL}/GetDepartments`)
+    .then(employee => {
+      result = employee.data
+  }).catch(error => {
+    console.log(error)
+  })
+
+  return await result
+}
+
+export const editEmployee = async (
+    id,
+    employeeName,
+    leaveDaysPerYear,
+    actualLeaveDaysNumber,
+    departmentId,
+    roleId
+  ) => {
+  let result
+  await axios.post(`${BASE_URL}/EditEmployee`, {
+    id,
+    employeeName,
+    leaveDaysPerYear,
+    actualLeaveDaysNumber,
+    departmentId,
+    roleId
+  }).then(sendRequest => {
+    result = sendRequest.data
+  }).catch(error => {
+    console.log(error)
+  })
+
+  return await result
+}
+
+export const roles = async () => {
+  let result
+  await axios.get(`${BASE_URL}/GetRoles`)
+    .then(employee => {
+      result = employee.data
+  }).catch(error => {
+    console.log(error)
+  })
+
+  return await result
+}

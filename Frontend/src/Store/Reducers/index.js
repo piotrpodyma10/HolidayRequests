@@ -6,7 +6,11 @@ import {
   employeeDataReducer,
   leaveRequestReducer,
   leaveRequestsByUsereducer,
-  deleteLeaveRequestReducer
+  deleteLeaveRequestReducer,
+  allEmployeeDataReducer,
+  rolesReducer,
+  editEmployeeReducer,
+  departmentsReducer
 } from './employeeReducer'
 
 import {
@@ -23,5 +27,9 @@ export default combineReducers({
   deleteRequest: deleteLeaveRequestReducer,
   openLeaveRequests: getOpenLeaveRequestsReducer,
   rejectOpenLeaveRequest: rejectOpenLeaveRequestReducer,
-  acceptOpenLeaveRequest: acceptOpenLeaveRequestReducer
+  acceptOpenLeaveRequest: acceptOpenLeaveRequestReducer,
+  allEmployeeData: allEmployeeDataReducer,
+  departments: departmentsReducer,
+  editEmployee: editEmployeeReducer,
+  roles: rolesReducer
 })
