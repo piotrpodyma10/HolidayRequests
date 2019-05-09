@@ -13,6 +13,7 @@ import {
   getOpenLeaveRequestsReducer,
   rejectOpenLeaveRequestReducer,
   acceptOpenLeaveRequestReducer,
+  setMonthRequestsReducer,
 } from './managerReducer'
 
 export default combineReducers({
@@ -23,5 +24,6 @@ export default combineReducers({
   deleteRequest: deleteLeaveRequestReducer,
   openLeaveRequests: getOpenLeaveRequestsReducer,
   rejectOpenLeaveRequest: rejectOpenLeaveRequestReducer,
-  acceptOpenLeaveRequest: acceptOpenLeaveRequestReducer
+  acceptOpenLeaveRequest: acceptOpenLeaveRequestReducer,
+  monthRequests: setMonthRequestsReducer,
 })

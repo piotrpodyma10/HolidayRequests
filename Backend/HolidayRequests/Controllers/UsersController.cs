@@ -46,6 +46,7 @@ namespace HolidayRequests.Controllers
                         ActualLeaveDaysNumber = x.Employee.ActualLeaveDaysNumber,
                         LeaveDaysPerYear = x.Employee.LeaveDaysPerYear,
                         DepartmentName = x.Employee.Department.Name,
+                        DepartmentId = x.Employee.DepartmentId,
                         Email = x.Employee.User.Email,
                         DepartmentTitle = "Department",
                         ModalTitle = "Take a day off!",

@@ -16,8 +16,8 @@ class Manager extends Component {
 	}
 
 	componentDidMount() {
-    this.props.getEmployeeData(this.props.userId)
-    this.props.getOpenLeaveRequests(this.props.userId)
+    	this.props.getEmployeeData(this.props.userId)
+    	this.props.getOpenLeaveRequests(this.props.userId)
 	}
 
 	render() {
@@ -99,9 +99,7 @@ class Manager extends Component {
 								<h1 className='ui header'>Holiday Report</h1>
 							</div>	
 							
-							<div className='row'>
-								<HolidayReport />
-							</div>
+							<HolidayReport />
 						</div>
 					);
 			case 'DEPARTMENT_MANAGEMENT':
@@ -129,7 +127,8 @@ class Manager extends Component {
 const mapStateToProps = state => {
   return {
     employee: state.employee.employee,
-    userId: state.signIn.user.id,
+	userId: state.signIn.user.id,
+	
     openRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.openLeaveRequests || [],
     numberOfPendingRequests: state.openLeaveRequests.openRequests && state.openLeaveRequests.openRequests.numberOfRequests || 0
   }

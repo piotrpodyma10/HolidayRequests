@@ -41,3 +41,20 @@ export const acceptOpenRequest = async (requestId) => {
 
   return await result
 }
+
+export const fetchMonthRequests = async (date, departmentId) => {
+  let result;
+
+  await axios.get(`${BASE_URL}/GetMonthRequests`, {
+    params: {
+      date,
+      departmentId
+    }
+  }).then(sendRequest => {
+    result = sendRequest.data
+  }).catch(error => {
+    console.log(error)
+  })
+
+  return await result
+}
