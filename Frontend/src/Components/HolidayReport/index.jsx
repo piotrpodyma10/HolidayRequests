@@ -5,8 +5,6 @@ import EmployeeRow from './employeeRow';
 import { changeToPreviousMonthRequests, changeToNextMonthRequests } from '../../Store/Actions/managerActions'
 import { getCurrentMonthsRequests } from './../../Store/Actions/'
 
-const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
 class HolidayReport extends React.Component {
     constructor(props){
         super(props);
@@ -91,10 +89,12 @@ class HolidayReport extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log("ST", state);
+  
   return {
       previousMonthEmployeeRequests: state.monthRequests.previous,
-      currentMonthEmployeeRequests: state.monthRequests.current,
-      nextMonthEmployeeRequests: state.monthRequests.next,
+      currentMonthEmployeeRequests: state.monthRequests.current || [],
+      nextMonthEmployeeRequests: state.monthRequests.next || [],
       departmentId: state.employee.employee.departmentId
   }
 }
