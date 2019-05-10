@@ -18,6 +18,7 @@ namespace HolidayRequests.ViewModels.Employee
         public int ActualLeaveDaysNumber { get; set; }
         public string DepartmentTitle { get; set; }
         public string DepartmentName { get; set; }
+        public int DepartmentId { get; set; }
         public string ModalTitle { get; set; }
         public string Email { get; set; }
     }

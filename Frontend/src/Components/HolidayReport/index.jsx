@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './styles.scss'
 import EmployeeRow from './employeeRow';
+import { changeToPreviousMonthRequests, changeToNextMonthRequests } from '../../Store/Actions/managerActions'
+import { getCurrentMonthsRequests } from './../../Store/Actions/'
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -15,28 +17,57 @@ class HolidayReport extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.getCurrentMonthsRequests(new Date(), this.props.departmentId);
+    }
+
     render() {
-        
         return (
-            <div>
-                {this.state.selectedDate.getMonth()} <br/>
-                {this.state.selectedDate.getFullYear()} <br/>
-                {this.state.selectedDate.getDate()} <br/>
-                <button onClick={() => this.setState({selectedDate: new Date(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth(), 0)})}> - </button> <br/>
-                <button onClick={() => this.setState({selectedDate: new Date(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth() + 2, 0)})}> + </button> <br/>
-                {this.renderDaysOfMonth()}
-                {this.renderRows()}
-            </div>
+            <>
+                <div className='row' style={{display: 'flex', flexWrap: 'nowrap', justifyContent: 'flex-end', alignItems: 'center'}}>
+                    <button className='circular ui icon button' style={{margin: '30px 20px 20px'}} onClick={() => this.onPreviousMonthClick()}>
+                        <i className='icon angle left'></i>
+                    </button>
+                    <h2>{this.state.selectedDate.toLocaleString('en-US', { year: 'numeric', month: 'long' })}</h2>
+                    <button className='circular ui icon button' style={{margin: '30px 40px 20px'}} onClick={() => this.onNextMonthClick()}>
+                        <i className='icon angle right'></i>
+                    </button>
+                </div>
+                <div className='row'>
+                    <table>
+                        {this.renderDaysOfMonth()}
+                        {this.renderRows()}
+                    </table>
+                </div>
+            </>
         );
+    }
+
+    onPreviousMonthClick(){
+        const newDate = new Date(Date.UTC(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth() - 1, 1));
+        this.setState({ selectedDate: new Date(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth(), 0) });
+
+        this.props.changeToPreviousMonthRequests(newDate, this.props.departmentId);
+    }
+
+    onNextMonthClick(){
+        const newDate = new Date(Date.UTC(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth() + 1, 1));
+        this.setState({ selectedDate: new Date(this.state.selectedDate.getFullYear(), this.state.selectedDate.getMonth() + 2, 0) });
+
+        this.props.changeToNextMonthRequests(newDate, this.props.departmentId);
     }
 
     renderDaysOfMonth(){
         return (
-            <div>
-                {[...Array(this.state.selectedDate.getDate())].map((v, i) =>
-                    <div className='dayHeader'> {i + 1} <br /> {this.getWeekDay(i)}</div>
-                )}
-            </div>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    {[...Array(this.state.selectedDate.getDate())].map((v, i) =>
+                        <div className='dayHeader'> {i + 1} <br /> {this.getWeekDay(i)}</div>
+                    )}
+                </td>
+            </tr>
         )
     }
     
@@ -44,14 +75,14 @@ class HolidayReport extends React.Component {
         const selectedDate = this.state.selectedDate;
         const date = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), dayNumber);
 
-        return weekDays[date.getDay()];
+        return date.toLocaleString('en-US', { weekday: 'short' });
     }
 
     renderRows(){
         const daysQuantity = this.state.selectedDate.getDate();
         return (
             <>
-                {this.props.employees.map((employee) =>
+                {this.props.currentMonthEmployeeRequests.map((employee) =>
                     <EmployeeRow employee={employee} daysQuantity={daysQuantity} selectedDate={this.state.selectedDate}/>
                 )}
             </>
@@ -61,42 +92,15 @@ class HolidayReport extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    employees: [{
-            firstName: 'A_First',
-            lastName: 'A_Last',
-            requests: [
-                {
-                    startDate: new Date('2019-05-04'),
-                    endDate: new Date('2019-05-11'),
-                    status: 'Open'
-                },
-                {
-                    startDate: new Date('2019-05-30'),
-                    endDate: new Date('2019-06-7'),
-                    status: 'Accepted'
-                }
-            ]
-        },{
-            firstName: 'B_First',
-            lastName: 'B_Last',
-            requests: [
-                {
-                    startDate: new Date('2019-04-29'),
-                    endDate: new Date('2019-05-05'),
-                    status: 'Open'
-                },
-                {
-                    startDate: new Date('2019-05-15'),
-                    endDate: new Date('2019-05-19'),
-                    status: 'Accepted'
-                }
-            ]
-        }
-    ],
+      previousMonthEmployeeRequests: state.monthRequests.previous,
+      currentMonthEmployeeRequests: state.monthRequests.current,
+      nextMonthEmployeeRequests: state.monthRequests.next,
+      departmentId: state.employee.employee.departmentId
   }
 }
 
-export default connect ( 
-  mapStateToProps, {
-  }
-)(HolidayReport)
+export default connect (mapStateToProps, {
+    changeToPreviousMonthRequests,
+    changeToNextMonthRequests,
+    getCurrentMonthsRequests,
+})(HolidayReport);

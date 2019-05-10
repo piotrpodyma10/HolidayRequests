@@ -1,7 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import './styles.scss'
+import React from 'react';
+import { connect } from 'react-redux';
+import './styles.scss';
 import DayTile from './dayTile';
+import faker from 'faker';
 
 class EmployeeRow extends React.Component {
     
@@ -9,9 +10,22 @@ class EmployeeRow extends React.Component {
         const days = this.getEmployeeMonth(this.props.employee.requests);
 
         return (
-            <div>
-                { days.map( day => <DayTile day={day} />) }
-            </div>
+            <tr>
+                <td>
+                    <img className='ui avatar image' src={`${faker.image.avatar()}`} />
+                </td>
+                <td>
+                    <h4 className='ui header'>
+                        <div className='content'>
+                            {this.props.employee.lastName}
+                            <div className='sub header'>{this.props.employee.firstName}</div>
+                        </div>
+                    </h4>
+                </td>
+                <td className='fifteen wide column'>
+                    { days.map( day => <DayTile day={day} />) }
+                </td>
+            </tr>
         )
     }
 
@@ -26,12 +40,13 @@ class EmployeeRow extends React.Component {
         requests.forEach(request => {
             for(let i = 0; i < days.length; i++){
                 currentDate.setDate(i + 1);
-
-                if(currentDate >= request.startDate && currentDate <= request.endDate) {
+                const startDate = new Date(request.startDate);
+                const endDate = new Date(request.endDate);
+                if(startDate <= currentDate && currentDate <= endDate) {
                     days[i] = {
                         status: request.status,
-                        fromDate: request.startDate,
-                        toDate: request.endDate
+                        fromDate: startDate,
+                        toDate: endDate
                     };
                 }
             }

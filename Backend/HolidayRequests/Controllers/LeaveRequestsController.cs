@@ -282,6 +282,49 @@ namespace HolidayRequests.Controllers
                 throw;
             }
         }
+
+        [HttpGet("GetMonthRequests")]
+        public ActionResult<IEnumerable<EmployeeMonthRequestsModel>> GetMonthRequests(DateTime date, int departmentId)
+        {
+            var startDate = new DateTime(date.Year, date.Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+
+            try
+            {
+                var idToEmployee = _context.Employees.Where(e => e.DepartmentId == departmentId).ToDictionary(e => e.Id, e => e);
+
+                var leaveRequests = _context.LeaveRequests
+                                                .Where(l => idToEmployee.ContainsKey(l.Id)
+                                                            && ((startDate <= l.StartDate && l.StartDate <= endDate)
+                                                                || (startDate <= l.EndDate && l.EndDate <= endDate)))
+                                                .ToList();
+
+                var employeeIdToMonthRequests = new Dictionary<int, EmployeeMonthRequestsModel>();
+                foreach (var item in idToEmployee)
+                {
+                    employeeIdToMonthRequests.Add(item.Key, new EmployeeMonthRequestsModel
+                    {
+                        FirstName = item.Value.FirstName,
+                        LastName = item.Value.LastName,
+                        Requests = new List<Request>()
+                    });
+                }
+
+                foreach (var item in leaveRequests)
+                {
+                    employeeIdToMonthRequests[item.EmployeeId].Requests.Add(new Request{
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                        Status = item.Status
+                    });
+                }
+                return Ok(employeeIdToMonthRequests.Values);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
 

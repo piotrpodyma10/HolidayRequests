@@ -17,6 +17,7 @@ import {
   getOpenLeaveRequestsReducer,
   rejectOpenLeaveRequestReducer,
   acceptOpenLeaveRequestReducer,
+  setMonthRequestsReducer,
 } from './managerReducer'
 
 export default combineReducers({
@@ -31,5 +32,6 @@ export default combineReducers({
   allEmployeeData: allEmployeeDataReducer,
   departments: departmentsReducer,
   editEmployee: editEmployeeReducer,
-  roles: rolesReducer
+  roles: rolesReducer,
+  monthRequests: setMonthRequestsReducer,
 })
