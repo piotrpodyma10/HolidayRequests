@@ -48,7 +48,10 @@ class Employee extends Component {
               </Link>
               { 
                 this.props.employee.role === "Manager" && 
-                <div onClick={() => createBrowserHistory({ forceRefresh: true }).push('/Manager')}>
+                <div 
+                  onClick={() => createBrowserHistory({ forceRefresh: true }).push('/Manager')}
+                  style={{ marginBottom: "120px" }}
+                >
                   <Box title={"Manager view"} />
                 </div>
               }
