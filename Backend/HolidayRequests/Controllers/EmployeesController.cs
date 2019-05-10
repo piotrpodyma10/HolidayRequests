@@ -63,7 +63,9 @@ namespace HolidayRequests.Controllers
                         actualDaysOff = x.ActualLeaveDaysNumber,
                         setDaysOff = x.LeaveDaysPerYear,
                         role = y.Role.Name,
+                        roleId = y.Role.Id,
                         departmentName = x.Department.Name,
+                        departmentId = x.Department.Id,
                         employeeId = x.Id
                     }).ToList();
 
@@ -102,28 +104,38 @@ namespace HolidayRequests.Controllers
             }
         }
 
-        [HttpPut("EditEmployee")]
+        [HttpPost("EditEmployee")]
         public IActionResult EditEmployee([FromBody] EditEmployeeRequest request)
         {
             try
             {
                 var findEmployee = _context.Employees.Where(e => e.Id == request.Id).FirstOrDefault();
                 var employeeRole = _context.UserRoles.Where(e => e.EmployeeId == request.Id).FirstOrDefault();
-                var xd = request.EmployeeName.Split(" ");
-                var dd = xd[0];
-                var kk = xd[1];
 
                 if (findEmployee != null && employeeRole != null)
                 {
+                    var employeeName = request.EmployeeName.Split(" ");
+                    var firstName = employeeName[0];
+                    var lastName = employeeName[1];
 
-                    //findEmployee.FirstName = request.EmployeeName.Split;
-                    //findEmployee.LastName = request.LastName;
+                    findEmployee.FirstName = firstName;
+                    findEmployee.LastName = lastName;
                     findEmployee.LeaveDaysPerYear = request.LeaveDaysPerYear;
                     findEmployee.ActualLeaveDaysNumber = request.ActualLeaveDaysNumber;
                     findEmployee.DepartmentId = request.DepartmentId;
-                    employeeRole.RoleId = request.RoleId;
 
-                    //_context.SaveChanges();
+                    if (employeeRole.RoleId != request.RoleId)
+                    {
+                        _context.UserRoles.Remove(employeeRole);
+                        _context.SaveChanges();
+                        _context.UserRoles.Add(new UserRole
+                        {
+                            EmployeeId = request.Id,
+                            RoleId = request.RoleId
+                        });
+                    }
+
+                    _context.SaveChanges();
                 }
                 else
                 {

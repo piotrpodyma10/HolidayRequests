@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { getAllEmployees } from './../../Store/Actions/'
+import { connect } from 'react-redux'
 import './styles.scss'
 
 class EditEmployeeModal extends React.Component { 
   state = {
     name: '' || this.props.selectedEmployee.name,
-    role: '' || this.props.roles,
-    role2: '' || this.props.selectedEmployee.role,
     setDaysOff: '' || this.props.selectedEmployee.setDaysOff,
     actualDaysOff: '' || this.props.selectedEmployee.actualDaysOff,
-    departmentName: '' || this.props.selectedEmployee.departmentName,
+    roleId: '' || this.props.selectedEmployee.roleId,
+    departmentId: '' || this.props.selectedEmployee.departmentId,
   }
 
   handleNameChange = (event) => {
@@ -16,7 +17,7 @@ class EditEmployeeModal extends React.Component {
   } 
 
   handleRoleChange = (event) => {
-    this.setState({ role: event.target.value})
+    this.setState({ roleId: parseInt(event.target.value)})
   } 
 
   handleSetDaysChange = (event) => {
@@ -28,48 +29,106 @@ class EditEmployeeModal extends React.Component {
   } 
 
   handleDepartmentChange = (event) => {
-    this.setState({ departmentName: event.target.value})
+    this.setState({ departmentId: parseInt(event.target.value)})
   } 
 
-  handleSubmit = () => {
+  handleSubmit = async (e) => {
+    const { name, setDaysOff, actualDaysOff, departmentId, roleId} = this.state
+    await this.props.editEmployeeRequest(
+      this.props.selectedEmployee.employeeId,
+      name,
+      setDaysOff,
+      actualDaysOff,
+      departmentId,
+      roleId
+    )
+    await this.props.getAllEmployees()
   }
 
   render() {
-    console.log('INDEX', this.state)
-      return (
-        <div className="editEmployeeModal">
-          <h3>Employee data</h3>
-          <form onSubmit={this.handleSubmit}>
-            <input 
-              type="text"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-            />
-            <input 
-              type="text"
-              value={this.state.role}
-              onChange={this.handleRoleChange}
-            />
-            <input 
-              type="text"
-              value={this.state.setDaysOff}
-              onChange={this.handleSetDaysChange}
-            />
-            <input 
-              type="text"
-              value={this.state.actualDaysOff}
-              onChange={this.handleActualDaysChange}
-            />
-            <input 
-              type="text"
-              value={this.state.departmentName}
-              onChange={this.handleDepartmentChange}
-            />
-            <button type="submit">Update employee</button>
-          </form>
-        </div>
-      );
-    }
+    const { role, roleId, departmentId, departmentName } = this.props.selectedEmployee
+    return (
+      <div className="editEmployeeModal">
+        <h3>Employee data</h3>
+        <form>
+          Name
+          <br/>
+          <input 
+            type="text"
+            value={this.state.name}
+            onChange={this.handleNameChange}
+          />
+          <br/>
+
+          Role
+          <br/>
+          <select
+            onChange={this.handleRoleChange}
+            value={this.state.roleId}
+          >
+          <option value={roleId}>{role}</option>
+            {
+              this.props.roles.filter(x => x.id !== roleId).map(role => {
+                return <option key={role.id}
+                  value={role.id} 
+                  >{role.name}</option> 
+              })
+            }
+          </select>
+          <br/>
+
+          Set days off per year
+          <br/>
+          <input 
+            type="text"
+            value={this.state.setDaysOff}
+            onChange={this.handleSetDaysChange}
+          />
+          <br/>
+
+          Actual number of days off
+          <br/>
+          <input 
+            type="text"
+            value={this.state.actualDaysOff}
+            onChange={this.handleActualDaysChange}
+          />
+          <br/>
+
+          Department
+          <br/>
+          <select
+            onChange={this.handleDepartmentChange}
+            value={this.state.departmentId}
+          >
+            <option value={departmentId}>{departmentName}</option>
+            {
+              this.props.departments.filter(x => x.id !== departmentId).map(department => {
+                return <option key={department.id}
+                  value={department.id} 
+                  >{department.name}</option> 
+              })
+            }
+          </select>
+
+          <button 
+            onClick={this.handleSubmit}
+          >
+            Update employee
+          </button>
+        </form>
+      </div>
+    )
+  }
 }
 
-export default EditEmployeeModal
+const mapStateToProps = state => {
+  return {
+  }
+}
+
+export default connect ( 
+  mapStateToProps, {
+    getAllEmployees
+  }
+)(EditEmployeeModal)

@@ -1,6 +1,6 @@
 .editEmployeeModal {
   width: 600px;
-  height: 500px;
+  height: 540px;
   position: absolute;
   background-color: rgba(7, 69, 93, 0.8);
   position: fixed;
@@ -18,11 +18,11 @@
   box-shadow: 2px 2px 10px 10px #000000;
 
   & h3 {
-    margin: 30px;
+    margin: 20px;
   }
 
   & form {
-    & input {
+    & input, select {
       margin: 15px;
       padding: 5px;
       color: white;
@@ -33,6 +33,10 @@
     & button {
       background-color: rgba(7, 69, 93, 0.8);
       margin: 30px;
+
+      &:hover {
+        background-color: rgb(0, 165, 179) !important;
+      }
     }
   }
 }

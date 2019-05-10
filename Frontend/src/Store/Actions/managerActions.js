@@ -13,8 +13,8 @@ export const getOpenLeaveRequests = (id) => async dispatch => {
   })
 }
 
-export const rejectOpenLeaveRequest = (id) => async dispatch => {
-  const response = await rejectOpenRequest(id)
+export const rejectOpenLeaveRequest = (id, daysOff) => async dispatch => {
+  const response = await rejectOpenRequest(id, daysOff)
   
   dispatch({ 
     type: 'REJECT_LEAVE_REQUEST', 

@@ -16,10 +16,11 @@ export const openRequests = async (approverId) => {
   return await result
 }
 
-export const rejectOpenRequest = async (requestId) => {
+export const rejectOpenRequest = async (requestId, daysOff) => {
   let result
   await axios.post(`${BASE_URL}/RejectLeaveRequest`, {
-    LeaveRequestId: requestId
+    LeaveRequestId: requestId,
+    daysOff: daysOff
   }).then(sendRequest => {
     result = sendRequest.data
   }).catch(error => {

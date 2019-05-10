@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { 
   getOpenLeaveRequests,
   rejectOpenLeaveRequest,
-  acceptOpenLeaveRequest
+  acceptOpenLeaveRequest,
+  getAllEmployees
 } from './../../Store/Actions'
 import './styles.scss'
 
@@ -16,8 +17,9 @@ class HolidayRequestRow extends React.Component {
   }
 
   rejectRequest = async () => {
-    await this.props.rejectOpenLeaveRequest(this.props.request.requestId)
+    await this.props.rejectOpenLeaveRequest(this.props.request.requestId, this.props.request.daysOff)
     await this.props.getOpenLeaveRequests(this.props.userId)
+    await this.props.getAllEmployees()
   }
 
     render() {
@@ -70,6 +72,7 @@ export default connect (
   mapStateToProps, {
     rejectOpenLeaveRequest,
     acceptOpenLeaveRequest,
-    getOpenLeaveRequests
+    getOpenLeaveRequests,
+    getAllEmployees
   }
 )(HolidayRequestRow)

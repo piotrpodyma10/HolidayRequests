@@ -10,7 +10,6 @@ import EmployeeManagement from '../../Components/EmployeeManagement'
 import DepartmentManagement from '../../Components/DepartmentManagement'
 
 class Manager extends Component {
-
 	state = {
 		context: 'none'
 	}
@@ -128,8 +127,6 @@ class Manager extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("XD", state);
-  
   return {
     employee: state.employee.employee,
     userId: state.signIn.user.id,

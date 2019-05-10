@@ -261,10 +261,13 @@ namespace HolidayRequests.Controllers
             try
             {
                 var findLeaveRequest = _context.LeaveRequests.Where(l => l.Id == request.LeaveRequestId).FirstOrDefault();
+                var employee = _context.Employees.Where(l => l.Id == findLeaveRequest.EmployeeId).FirstOrDefault();
 
-                if (findLeaveRequest != null)
+                if (findLeaveRequest != null && employee != null)
                 {
+                    employee.ActualLeaveDaysNumber = employee.ActualLeaveDaysNumber + request.DaysOff;
                     findLeaveRequest.Status = "Rejected";
+
                     _context.SaveChanges();
                 }
                 else

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import EmployeeRow from './employeeRow'
 import { getRoles, getDepartments, editEmployeeRequest } from './../../Store/Actions'
-// import EditEmployeeModal from './../'
 import EditEmployeeModal from './../EditEmployeeModal'
 
 class EmployeeManagement extends React.Component {
@@ -18,15 +17,11 @@ class EmployeeManagement extends React.Component {
   
   openModal = (employee, e) => {
     e.preventDefault()
-    
     this.setState({ displayModal: !this.state.displayModal, selectedEmployee: employee })
-    console.log("emp", employee);
-    
   }
   
   
   render() {
-    console.log("DDZD", this.props);
     const { displayModal, selectedEmployee } = this.state
     const { roles, departments } = this.props
 
@@ -50,6 +45,7 @@ class EmployeeManagement extends React.Component {
           selectedEmployee={selectedEmployee} 
           departments={departments}
           roles={roles}
+          editEmployeeRequest={this.props.editEmployeeRequest}
         />}
         </Fragment>
       );
@@ -57,7 +53,6 @@ class EmployeeManagement extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('SZT2', state)
   return {
     roles: state.roles.roles,
     departments: state.departments.departments
