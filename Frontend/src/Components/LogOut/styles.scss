@@ -1,0 +1,25 @@
+.logOut {
+  font-size: 16px;
+  padding: 12px;
+  background-color: #525252;
+  color: white;
+  margin: 10px;
+  border: solid white 2px;
+  border-radius: 10px;
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  transition: 1s;
+
+  &:hover {
+    background-color: white;
+    color: #525252;
+    transition: 1s;
+    cursor: pointer;
+  }
+
+  & i {
+    font-size: 34px;
+  }
+}

@@ -7,7 +7,7 @@ import Modal from '../../Components/Modal'
 import { createBrowserHistory } from 'history'
 import RequestBar from '../../Components/RequestBar'
 import { Link } from 'react-router-dom'
-
+import Logout from '../../Components/LogOut'
 class Employee extends Component {
 
   state = {
@@ -52,6 +52,9 @@ class Employee extends Component {
                   <Box title={"Manager view"} />
                 </div>
               }
+              <Link to="/">
+                <Logout />
+              </Link>
             </React.Fragment>
             }
           </div>
