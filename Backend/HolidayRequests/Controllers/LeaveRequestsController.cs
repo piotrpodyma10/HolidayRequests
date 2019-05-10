@@ -294,8 +294,7 @@ namespace HolidayRequests.Controllers
                 var idToEmployee = _context.Employees.Where(e => e.DepartmentId == departmentId).ToDictionary(e => e.Id, e => e);
 
                 var leaveRequests = _context.LeaveRequests
-                                                .Where(l => idToEmployee.ContainsKey(l.Id)
-                                                            && ((startDate <= l.StartDate && l.StartDate <= endDate)
+                                                .Where(l => ((startDate <= l.StartDate && l.StartDate <= endDate)
                                                                 || (startDate <= l.EndDate && l.EndDate <= endDate)))
                                                 .ToList();
 
@@ -312,6 +311,7 @@ namespace HolidayRequests.Controllers
 
                 foreach (var item in leaveRequests)
                 {
+                    if (!employeeIdToMonthRequests.ContainsKey(item.EmployeeId)) continue;
                     employeeIdToMonthRequests[item.EmployeeId].Requests.Add(new Request{
                         StartDate = item.StartDate,
                         EndDate = item.EndDate,
