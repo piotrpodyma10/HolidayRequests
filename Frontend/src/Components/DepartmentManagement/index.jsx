@@ -10,7 +10,7 @@ class DepartmentManagement extends React.Component {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th className='right aligned'>Actions</th>
+                        <th className='right aligned' style={{paddingRight: "60px"}}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>

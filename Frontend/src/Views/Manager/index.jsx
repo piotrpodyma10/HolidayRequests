@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './styles.scss'
 import Box from '../../Components/Box'
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ import DepartmentManagement from '../../Components/DepartmentManagement'
 
 class Manager extends Component {
 	state = {
-		context: 'none'
+		context: 'HOLIDAY_REQUESTS'
 	}
 
 	componentDidMount() {

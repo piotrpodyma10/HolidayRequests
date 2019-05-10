@@ -13,10 +13,10 @@ class DepartmentRow extends React.Component {
                     </h4>
                 </td>
                 <td className='right aligned'>
-                    <button className='circular ui icon button'>
+                    <button className='editEmployee'>
                         <i className='pencil alternate icon'></i>
                     </button>
-                    <button className='circular ui icon red button'>
+                    <button className='deleteEmployee'>
                         <i className='trash alternate icon'></i>
                     </button>
                 </td>
